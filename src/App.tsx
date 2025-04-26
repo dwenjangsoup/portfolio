@@ -2,6 +2,8 @@ import { useRef } from "react";
 import styled from "styled-components";
 import Intro from "./components/Intro";
 import bgm from "./assets/나 아이돌 선언.m4a";
+import Rainy from "./components/Rainy";
+import History from "./components/History";
 
 const Container = styled.div`
   width: 100%;
@@ -18,12 +20,16 @@ function App() {
   };
 
   return (
-    <Container>
-      {/* <audio ref={audioRef} src="/나 아이돌 선언.m4a" loop type="audio/mp4" /> */}
-      <audio ref={audioRef} src={bgm} loop type="audio/mp4" />
-      <button onClick={playAudio}>🎵 BGM 재생</button>
-      <Intro />
-    </Container>
+    <>
+      <Container>
+        {/* <audio ref={audioRef} src="/나 아이돌 선언.m4a" loop type="audio/mp4" /> */}
+        <audio ref={audioRef} src={bgm} loop type="audio/mp4" />
+        <button onClick={playAudio}>🎵 BGM 재생</button>
+        <Intro />
+        <History />
+      </Container>
+      <Rainy />
+    </>
   );
 }
 
