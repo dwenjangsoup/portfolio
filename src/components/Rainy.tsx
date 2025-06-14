@@ -14,6 +14,8 @@ const Container = styled.div`
   top: 0;
   left: 0;
   overflow: hidden;
+  pointer-events: none; /* 마우스 이벤트 무시 (스크롤 가능해짐) */
+  z-index: 1000; /* 다른 요소 위에 표시 */
 `;
 const Anime = keyframes`
   from {
@@ -27,18 +29,43 @@ const Items = styled.img`
   height: 70px;
   position: absolute;
   top: -100px;
-  left: ${() => Math.random() * 100}vw; /* 0~100vw 랜덤 위치 */
-  animation: ${Anime} ${() => Math.random() * 5 + 10}s linear infinite;
+  left: ${({ left }) => left}vw; /* 0~100vw 랜덤 위치 */
+  animation: ${Anime} ${({ duration }) => duration}s linear infinite;
+  animation-delay: ${({ delay }) => delay}s;
 `;
+
+const generateRandomProps = () => {
+  const randomData = {
+    left: Math.random() * 100,
+    duration: 5, // Math.random() * 15 + 3, // 10 ~ 15초
+    delay: Math.random() * 30, // 0 ~ 5초 지연
+  };
+
+  return randomData;
+};
 
 const Rainy = () => {
   console.log("이거 나옴?");
+  const items = [
+    네_잎클로버,
+    별별별,
+    슈가슈가룬,
+    에가오쨩,
+    네_잎클로버,
+    별별별,
+    슈가슈가룬,
+    에가오쨩,
+    // 네_잎클로버,
+    // 별별별,
+    // 슈가슈가룬,
+    // 에가오쨩,
+  ];
   return (
     <Container>
-      <Items src={네_잎클로버} />
-      <Items src={별별별} />
-      <Items src={슈가슈가룬} />
-      <Items src={에가오쨩} />
+      {items.map((src, index) => {
+        const randomProps = generateRandomProps();
+        return <Items key={index} src={src} {...randomProps} />;
+      })}
     </Container>
   );
 };
